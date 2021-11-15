@@ -19,9 +19,10 @@ jobs:
         os:
           - ubuntu-latest
           - windows-latest
-        dotnet:
-          - net6.0
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
       - name: Run dotnet test
-        run: dotnet test -c Release -f ${{ matrix.dotnet }}
+        run: dotnet test -c Release

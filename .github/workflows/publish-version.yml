@@ -15,12 +15,10 @@ jobs:
         os:
           - ubuntu-latest
           - windows-latest
-        dotnet:
-          - net6.0
     steps:
       - uses: actions/checkout@v2
       - name: Run dotnet test
-        run: dotnet test -c Release -f ${{ matrix.dotnet }}
+        run: dotnet test -c Release
 
   release:
     name: Release
@@ -30,6 +28,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
       # GitVersion action doesn't support /ensureassemblyinfo, see https://github.com/GitTools/actions/issues/220
       # So we need to create a new file to let GitVersion populate it
       - name: Create assembly info file for GitVersion
