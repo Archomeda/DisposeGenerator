@@ -13,7 +13,7 @@
 
 Check the changelog at https://github.com/Archomeda/DisposeGenerator/blob/master/CHANGELOG.md</Description>
     <PackageTags>dispose;disposable;source generator</PackageTags>
-    <PackageProjectUrl>https://archomeda.github.io/DisposeGenerator</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Archomeda/DisposeGenerator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Archomeda/DisposeGenerator</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
