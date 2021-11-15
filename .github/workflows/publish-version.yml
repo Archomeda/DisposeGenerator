@@ -54,7 +54,7 @@ jobs:
         shell: powershell
         run: 7z a DisposeGenerator.zip ./DisposeGenerator/bin/Release/*
       - name: Run dotnet pack
-        run: dotnet pack DisposeGenerator -c Release --no-build --include-symbols -p:SymbolPackageFormat=snupkg -p:VERSIONED_BUILD=${{ steps.gitversion.outputs.semVer }} -o pack
+        run: dotnet pack DisposeGenerator -c Release --no-build -p:VERSIONED_BUILD=${{ steps.gitversion.outputs.semVer }} -o pack
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
