@@ -17,6 +17,9 @@ jobs:
           - windows-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
       - name: Run dotnet test
         run: dotnet test -c Release
 
