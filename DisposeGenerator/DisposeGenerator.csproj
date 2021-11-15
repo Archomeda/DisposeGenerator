@@ -17,13 +17,13 @@ Check the changelog at https://github.com/Archomeda/DisposeGenerator/blob/master
     <RepositoryUrl>https://github.com/Archomeda/DisposeGenerator</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <IncludeSymbols>true</IncludeSymbols>
 
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeBuildOutput>false</IncludeBuildOutput> <!-- Do not include the generator as a lib dependency -->
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Include the attributes as embedded resources instead of compiled source files -->
     <Compile Remove="Attributes\*.cs" />
     <EmbeddedResource Include="Attributes\*.cs" />
   </ItemGroup>
