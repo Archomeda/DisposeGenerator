@@ -6,6 +6,21 @@
     <IsRoslynComponent>true</IsRoslynComponent>
     <Nullable>enable</Nullable>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+    <PackageId>DisposeGenerator</PackageId>
+    <Authors>Archomeda</Authors>
+    <Description>A C# source generator that automatically implements IDisposable and IAsyncDisposable.
+
+Check the changelog at https://github.com/Archomeda/DisposeGenerator/blob/master/CHANGELOG.md</Description>
+    <PackageTags>dispose;disposable;source generator</PackageTags>
+    <PackageProjectUrl>https://archomeda.github.io/DisposeGenerator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Archomeda/DisposeGenerator</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <ItemGroup>
