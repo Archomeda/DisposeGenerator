@@ -19,6 +19,8 @@ Check the changelog at https://github.com/Archomeda/DisposeGenerator/blob/master
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <DevelopmentDependency>true</DevelopmentDependency>
     <IncludeBuildOutput>false</IncludeBuildOutput> <!-- Do not include the generator as a lib dependency -->
   </PropertyGroup>
 
