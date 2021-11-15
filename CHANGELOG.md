@@ -1,5 +1,8 @@
 # DisposeGenerator History
 
+## 0.1.3 (15 November 2021)
+- Downgrade Microsoft.CodeAnalysis.CSharp to 3.9.0 to support Visual Studio 2019 16.9 and up
+
 ## 0.1.2 (15 November 2021)
 - Fix packing as development dependency
 
