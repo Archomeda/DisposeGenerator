@@ -325,7 +325,7 @@ namespace DisposeGenerator
                     // Skip non-classes
                     return;
 
-                if (!classDeclarationSyntax.Modifiers.Any(x => x.Kind() == SyntaxKind.PartialKeyword))
+                if (!classDeclarationSyntax.Modifiers.Any(x => x.IsKind(SyntaxKind.PartialKeyword)))
                     // Skip non-partial classes
                     return;
 
