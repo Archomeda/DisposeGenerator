@@ -33,4 +33,17 @@ Check the changelog at https://github.com/Archomeda/DisposeGenerator/blob/master
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(VERSIONED_BUILD)'!=''">
+    <Version>$(VERSIONED_BUILD)</Version>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(VERSIONED_BUILD)'!='' And '$(CI)'=='true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
 </Project>
