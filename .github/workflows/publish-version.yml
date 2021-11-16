@@ -39,7 +39,8 @@ jobs:
       - name: Create assembly info file for GitVersion
         shell: powershell
         run: |
-          set-Content -Path DisposeGenerator/Properties/AssemblyVersionInfo.cs -Value 'using System.Reflection;'
+          mkdir DisposeGenerator/Properties
+          Set-Content -Path DisposeGenerator/Properties/AssemblyVersionInfo.cs -Value 'using System.Reflection;'
       - uses: gittools/actions/gitversion/setup@v0.9.6
         with:
           versionSpec: '5.x'
