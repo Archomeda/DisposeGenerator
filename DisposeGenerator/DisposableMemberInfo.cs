@@ -20,10 +20,14 @@ namespace DisposeGenerator
             {
                 if (this.Syntax is FieldDeclarationSyntax field)
                     return field.Declaration.Variables.Select(x => x.Identifier.ToString());
+                else if (this.Syntax is PropertyDeclarationSyntax property)
+                    return new[] { property.Identifier.ToString() };
 
                 throw new NotSupportedException($"Type {this.Syntax.GetType().Name} is not yet supported for generating disposing members automatically");
             }
         }
+
+        public bool SetNull { get; set; }
 
         public bool ImplementsAsyncDisposable { get; set; }
     }

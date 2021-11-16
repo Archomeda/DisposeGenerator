@@ -57,6 +57,17 @@ namespace DisposeGenerator.Tests
         public DisposableWithMethods? DisposableFieldExcluded = new();
     }
 
+    public partial class AsyncDisposableWithProperties : IDisposable, IAsyncDisposable
+    {
+        [IncludeDispose]
+        public DisposableWithMethods DisposablePropertyIncluded { get; set; } = new();
+
+        [IncludeDispose]
+        public DisposableWithMethods DisposablePropertyIncludedWithoutSetter { get; } = new();
+
+        public DisposableWithMethods DisposablePropertyExcluded { get; set; } = new();
+    }
+
 
     public class AsyncDisposeGeneratorTests
     {
@@ -144,6 +155,24 @@ namespace DisposeGenerator.Tests
             {
                 disposable.DisposableFieldIncluded.Should().BeNull();
                 disposable.DisposableFieldExcluded.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void PropertyDisposeTest()
+        {
+            bool disposed = false;
+
+            // We just check for nulls here, the cascade test will check if included members are properly disposed of
+            var disposable = new AsyncDisposableWithProperties();
+            disposable.DisposablePropertyIncludedWithoutSetter.OnDispose = () => disposed = true;
+            disposable.Dispose();
+
+            using (new AssertionScope())
+            {
+                disposable.DisposablePropertyIncluded.Should().BeNull();
+                disposable.DisposablePropertyExcluded.Should().NotBeNull();
+                disposed.Should().BeTrue();
             }
         }
 
@@ -247,6 +276,24 @@ namespace DisposeGenerator.Tests
             {
                 disposable.DisposableFieldIncluded.Should().BeNull();
                 disposable.DisposableFieldExcluded.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public async Task PropertyAsyncDisposeTest()
+        {
+            bool disposed = false;
+
+            // We just check for nulls here, the cascade test will check if included members are properly disposed of
+            var disposable = new AsyncDisposableWithProperties();
+            disposable.DisposablePropertyIncludedWithoutSetter.OnDispose = () => disposed = true;
+            await disposable.DisposeAsync();
+
+            using (new AssertionScope())
+            {
+                disposable.DisposablePropertyIncluded.Should().BeNull();
+                disposable.DisposablePropertyExcluded.Should().NotBeNull();
+                disposed.Should().BeTrue();
             }
         }
     }

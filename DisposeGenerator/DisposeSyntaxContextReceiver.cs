@@ -103,7 +103,7 @@ namespace DisposeGenerator
         private static IEnumerable<DisposableMemberInfo> FindAllDisposableMembers(GeneratorSyntaxContext context, ClassDeclarationSyntax declaration,
             INamedTypeSymbol iDisposable, INamedTypeSymbol? iAsyncDisposable, bool disposeByDefault)
         {
-            return declaration.Members
+            var fFields = declaration.Members
                 .OfType<FieldDeclarationSyntax>()
                 .Where(x =>
                 {
@@ -114,15 +114,38 @@ namespace DisposeGenerator
                     return disposeByDefault
                         ? implementsInterface && !hasExclude
                         : implementsInterface && hasInclude && !hasExclude;
-                })
-                .Select(x =>
+                }).Select(x =>
                 {
                     bool fieldImplementsAsyncDisposable = iAsyncDisposable is not null && x.Declaration.Type.ImplementsInterface(context, iAsyncDisposable);
                     return new DisposableMemberInfo(x)
                     {
-                        ImplementsAsyncDisposable = fieldImplementsAsyncDisposable
+                        ImplementsAsyncDisposable = fieldImplementsAsyncDisposable,
+                        SetNull = true
                     };
                 });
+
+            var fProperties = declaration.Members
+                .OfType<PropertyDeclarationSyntax>()
+                .Where(x =>
+                {
+                    bool implementsInterface = x.Type.ImplementsInterface(context, iDisposable);
+                    bool hasInclude = x.HasAttribute(context, EmbeddedFiles.IncludeDisposeAttributeFQN);
+
+                    // Properties aren't included by default
+                    return implementsInterface && hasInclude;
+                }).Select(x =>
+                {
+                    bool fieldImplementsAsyncDisposable = iAsyncDisposable is not null && x.Type.ImplementsInterface(context, iAsyncDisposable);
+                    bool hasSetter = x.AccessorList?.Accessors.Any(x => x.IsKind(SyntaxKind.SetAccessorDeclaration)) ?? false;
+
+                    return new DisposableMemberInfo(x)
+                    {
+                        ImplementsAsyncDisposable = fieldImplementsAsyncDisposable,
+                        SetNull = hasSetter
+                    };
+                });
+
+            return fFields.Concat(fProperties);
         }
 
         //private static bool ImplementsMethodInBase(GeneratorSyntaxContext context, ClassDeclarationSyntax declaration, string name,

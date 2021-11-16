@@ -48,6 +48,17 @@ namespace DisposeGenerator.Tests
         public DisposableWithMethods? DisposableFieldExcluded = new();
     }
 
+    public partial class DisposableWithProperties : IDisposable
+    {
+        [IncludeDispose]
+        public DisposableWithMethods DisposablePropertyIncluded { get; set; } = new();
+
+        [IncludeDispose]
+        public DisposableWithMethods DisposablePropertyIncludedWithoutSetter { get; } = new();
+
+        public DisposableWithMethods DisposablePropertyExcluded { get; set; } = new();
+    }
+
     public class DisposeGeneratorTests
     {
         [Fact]
@@ -128,6 +139,24 @@ namespace DisposeGenerator.Tests
             {
                 disposable.DisposableFieldIncluded.Should().BeNull();
                 disposable.DisposableFieldExcluded.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void PropertyDisposeTest()
+        {
+            bool disposed = false;
+
+            // We just check for nulls here, the cascade test will check if included members are properly disposed of
+            var disposable = new DisposableWithProperties();
+            disposable.DisposablePropertyIncludedWithoutSetter.OnDispose = () => disposed = true;
+            disposable.Dispose();
+
+            using (new AssertionScope())
+            {
+                disposable.DisposablePropertyIncluded.Should().BeNull();
+                disposable.DisposablePropertyExcluded.Should().NotBeNull();
+                disposed.Should().BeTrue();
             }
         }
 

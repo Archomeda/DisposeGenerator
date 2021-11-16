@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -176,11 +177,11 @@ namespace DisposeGenerator
 
             void AppendClear()
             {
-                foreach (var member in classInfo.ManagedMembers)
-                {
-                    foreach (string? name in member.Names)
-                        builder.AppendLine($"this.{name} = null;");
-                }
+                var fNames = classInfo.ManagedMembers
+                    .Where(x => x.SetNull)
+                    .SelectMany(x => x.Names);
+                foreach (string? name in fNames)
+                    builder.AppendLine($"this.{name} = null;");
             }
 
             void AppendSetDisposed()
@@ -274,11 +275,11 @@ namespace DisposeGenerator
 
             void AppendClear()
             {
-                foreach (var member in classInfo.ManagedMembers)
-                {
-                    foreach (string? name in member.Names)
-                        builder.AppendLine($"this.{name} = null;");
-                }
+                var fNames = classInfo.ManagedMembers
+                    .Where(x => x.SetNull)
+                    .SelectMany(x => x.Names);
+                foreach (string? name in fNames)
+                    builder.AppendLine($"this.{name} = null;");
             }
         }
     }
