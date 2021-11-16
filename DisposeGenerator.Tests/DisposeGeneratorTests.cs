@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using DisposeGenerator.Attributes;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Xunit;

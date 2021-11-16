@@ -1,6 +1,6 @@
 using System;
 
-namespace DisposeGenerator.Attributes
+namespace DisposeGenerator
 {
     /// <summary>
     /// An attribute for specifying that a class should implement <see cref="IDisposable"/> automatically

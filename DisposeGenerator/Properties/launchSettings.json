@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "DisposeGenerator": {
-      "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\DisposeGenerator.Tests\\DisposeGenerator.Tests.csproj"
-    }
-  }
-}

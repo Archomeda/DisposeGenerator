@@ -1,6 +1,6 @@
 using System;
 
-namespace DisposeGenerator.Attributes
+namespace DisposeGenerator
 {
     /// <summary>
     /// An attribute for specifying that a method is used for additional disposing managed resources asynchronously.

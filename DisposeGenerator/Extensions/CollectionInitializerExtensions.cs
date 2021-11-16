@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace DisposeGenerator.Utils
+namespace DisposeGenerator.Extensions
 {
-    internal static class CollectionInitializer
+    internal static class CollectionInitializerExtensions
     {
         public static void Add<T>(this ICollection<T> collection, IEnumerable<T> values)
         {

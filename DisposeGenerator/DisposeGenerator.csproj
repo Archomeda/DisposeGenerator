@@ -26,8 +26,8 @@ Check the changelog at https://github.com/Archomeda/DisposeGenerator/blob/master
 
   <ItemGroup>
     <!-- Include the attributes as embedded resources instead of compiled source files -->
-    <Compile Remove="Attributes\*.cs" />
-    <EmbeddedResource Include="Attributes\*.cs" />
+    <Compile Remove="Embedded\*.cs" />
+    <EmbeddedResource Include="Embedded\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
