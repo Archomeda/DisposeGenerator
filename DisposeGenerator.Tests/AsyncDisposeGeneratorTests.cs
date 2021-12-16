@@ -41,6 +41,12 @@ namespace DisposeGenerator.Tests
     }
 
     [DisposeAll]
+    public partial class AsyncDisposableWithDisposables : IDisposable, IAsyncDisposable
+    {
+        public IAsyncDisposable? DisposableField;
+    }
+
+    [DisposeAll]
     public partial class AsyncDisposableWithExcludes : IDisposable, IAsyncDisposable
     {
         public DisposableWithMethods? DisposableFieldIncluded = new();
@@ -126,6 +132,29 @@ namespace DisposeGenerator.Tests
             {
                 cascadeDisposed.Should().BeTrue();
                 cascadeAsyncDisposed.Should().BeFalse();
+                disposable.DisposableField.Should().BeNull();
+            }
+        }
+
+        [Fact]
+        public void DisposeDisposablesTest()
+        {
+            bool disposed = false;
+            bool asyncDisposed = false;
+            var disposable = new AsyncDisposableWithDisposables
+            {
+                DisposableField = new AsyncDisposableWithMethods
+                {
+                    OnDispose = () => disposed = true,
+                    OnAsyncDispose = async () => asyncDisposed = true
+                }
+            };
+            disposable.Dispose();
+
+            using (new AssertionScope())
+            {
+                disposed.Should().BeTrue();
+                asyncDisposed.Should().BeFalse();
                 disposable.DisposableField.Should().BeNull();
             }
         }

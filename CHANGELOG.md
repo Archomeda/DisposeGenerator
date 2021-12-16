@@ -1,5 +1,8 @@
 # DisposeGenerator History
 
+## 0.2.1 (17 December 2021)
+- Fix members with explicit `IDisposable` or `IAsyncDisposable` type from not being disposed
+
 ## 0.2.0 (16 November 2021)
 - Add support to explicitly dispose properties with `IncludeDisposeAttribute`
 - Move all attributes from the `DisposeGenerator.Attributes` to the `DisposeGenerator` namespace

@@ -107,7 +107,8 @@ namespace DisposeGenerator
                 .OfType<FieldDeclarationSyntax>()
                 .Where(x =>
                 {
-                    bool implementsInterface = x.Declaration.Type.ImplementsInterface(context, iDisposable);
+                    bool implementsInterface = x.Declaration.Type.ImplementsInterface(context, iDisposable) ||
+                        (iAsyncDisposable is not null && x.Declaration.Type.ImplementsInterface(context, iAsyncDisposable));
                     bool hasInclude = x.HasAttribute(context, EmbeddedFiles.IncludeDisposeAttributeFQN);
                     bool hasExclude = x.HasAttribute(context, EmbeddedFiles.ExcludeDisposeAttributeFQN);
 

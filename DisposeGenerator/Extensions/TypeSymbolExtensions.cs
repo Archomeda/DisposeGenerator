@@ -13,8 +13,8 @@ namespace DisposeGenerator.Extensions
         /// <returns><see langword="true"/> if the type symbol implements the interface, <see langword="false"/> otherwise.</returns>
         public static bool ImplementsInterface(this ITypeSymbol? typeSymbol, INamedTypeSymbol interfaceSymbol)
         {
-            return typeSymbol?.AllInterfaces
-                .Any(x => x.Equals(interfaceSymbol, SymbolEqualityComparer.Default)) ?? false;
+            return typeSymbol?.Equals(interfaceSymbol, SymbolEqualityComparer.Default) == true ||
+                typeSymbol?.AllInterfaces.Any(x => x.Equals(interfaceSymbol, SymbolEqualityComparer.Default)) == true;
         }
     }
 }

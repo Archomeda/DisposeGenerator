@@ -259,7 +259,7 @@ namespace DisposeGenerator
                         builder.AppendLine("}");
                         builder.AppendLine("else");
                         builder.AppendLine("{");
-                        builder.AppendLine($"this.{name}?.Dispose();");
+                        builder.AppendLine($"(this.{name} as IDisposable)?.Dispose();");
                         builder.AppendLine("}");
                     }
                 }
